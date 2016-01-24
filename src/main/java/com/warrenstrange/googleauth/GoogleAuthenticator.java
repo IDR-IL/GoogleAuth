@@ -132,6 +132,8 @@ public final class GoogleAuthenticator implements IGoogleAuthenticator {
      * The configuration used by the current instance.
      */
     private final GoogleAuthenticatorConfig config;
+    
+    private ICredentialRepository localRepository = null;
 
     /**
      * The internal SecureRandom instance used by this class. Since as of Java 7
@@ -147,6 +149,11 @@ public final class GoogleAuthenticator implements IGoogleAuthenticator {
 
     public GoogleAuthenticator() {
         config = new GoogleAuthenticatorConfig();
+    }
+    
+    public GoogleAuthenticator(ICredentialRepository localRepository) {
+        config = new GoogleAuthenticatorConfig();
+        this.localRepository = localRepository;
     }
 
     public GoogleAuthenticator(GoogleAuthenticatorConfig config) {
@@ -473,12 +480,18 @@ public final class GoogleAuthenticator implements IGoogleAuthenticator {
     /**
      * This method loads the first available and valid ICredentialRepository
      * registered using the Java service loader API.
+     * 
+     * Added: first checks for locally set repository.
      *
      * @return the first registered ICredentialRepository.
      * @throws java.lang.UnsupportedOperationException if no valid service is
      *                                                 found.
      */
     private ICredentialRepository getValidCredentialRepository() {
+    	
+    	if(localRepository != null)
+    		return localRepository;
+    	
         ICredentialRepository repository = getCredentialRepository();
 
         if (repository == null) {
@@ -511,4 +524,5 @@ public final class GoogleAuthenticator implements IGoogleAuthenticator {
 
         return null;
     }
+
 }

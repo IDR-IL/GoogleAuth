@@ -30,15 +30,21 @@
 
 package com.warrenstrange.googleauth;
 
-import com.warrenstrange.googleauth.GoogleAuthenticatorConfig.GoogleAuthenticatorConfigBuilder;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 import java.math.BigInteger;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+import com.warrenstrange.googleauth.CredentialRepositoryMock;
+import com.warrenstrange.googleauth.GoogleAuthenticator;
+import com.warrenstrange.googleauth.GoogleAuthenticatorConfig.GoogleAuthenticatorConfigBuilder;
+import com.warrenstrange.googleauth.GoogleAuthenticatorKey;
+import com.warrenstrange.googleauth.GoogleAuthenticatorQRGenerator;
+import com.warrenstrange.googleauth.KeyRepresentation;
 
 /**
  * Not really a unit test, but it shows the basic usage of this package.
@@ -60,8 +66,8 @@ public class GoogleAuthTest {
 
     // Change this to the saved secret from the running the above test.
     @SuppressWarnings("SpellCheckingInspection")
-    private static final String SECRET_KEY = "KR52HV2U5Z4DWGLJ";
-    private static final int VALIDATION_CODE = 598775;
+    private static final String SECRET_KEY = "5NB4V2ZLLW4V3L5L";
+    private static final int VALIDATION_CODE = 687243;
 
     @BeforeClass
     public static void setupMockCredentialRepository() {
